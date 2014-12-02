@@ -403,16 +403,17 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f020017;
         public static final int common_signin_btn_text_pressed_dark=0x7f020018;
         public static final int common_signin_btn_text_pressed_light=0x7f020019;
-        public static final int ic_launcher=0x7f02001a;
-        public static final int ic_plusone_medium_off_client=0x7f02001b;
-        public static final int ic_plusone_small_off_client=0x7f02001c;
-        public static final int ic_plusone_standard_off_client=0x7f02001d;
-        public static final int ic_plusone_tall_off_client=0x7f02001e;
-        public static final int powered_by_google_dark=0x7f02001f;
-        public static final int powered_by_google_light=0x7f020020;
+        public static final int conversation=0x7f02001a;
+        public static final int ic_launcher=0x7f02001b;
+        public static final int ic_plusone_medium_off_client=0x7f02001c;
+        public static final int ic_plusone_small_off_client=0x7f02001d;
+        public static final int ic_plusone_standard_off_client=0x7f02001e;
+        public static final int ic_plusone_tall_off_client=0x7f02001f;
+        public static final int powered_by_google_dark=0x7f020020;
+        public static final int powered_by_google_light=0x7f020021;
     }
     public static final class id {
-        public static final int action_nuevo=0x7f07001a;
+        public static final int action_nuevo=0x7f07001b;
         public static final int book_now=0x7f070010;
         public static final int button1=0x7f070015;
         public static final int button_enviar=0x7f070019;
@@ -436,6 +437,7 @@ containing a value of this type.
         public static final int spinner1=0x7f070016;
         public static final int strict_sandbox=0x7f070009;
         public static final int terrain=0x7f070003;
+        public static final int textView1=0x7f07001a;
         public static final int txt_texto=0x7f070018;
         public static final int txt_titulo=0x7f070017;
         public static final int wrap_content=0x7f07000d;
@@ -447,6 +449,7 @@ containing a value of this type.
         public static final int activity_main=0x7f030000;
         public static final int activity_menu=0x7f030001;
         public static final int activity_nuevo=0x7f030002;
+        public static final int my_spinner_style=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
@@ -592,9 +595,14 @@ containing a value of this type.
          */
         public static final int AppBaseTheme=0x7f040005;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f040006;
+        /**  ActionBar styles 
+         */
+        public static final int RdrActionBar=0x7f040007;
+        /**  The beef: background color for Action Bar overflow menu 
+         */
+        public static final int RdrPopupMenu=0x7f040008;
         public static final int Theme_IAPTheme=0x7f040000;
         public static final int WalletFragmentDefaultButtonTextAppearance=0x7f040003;
         public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f040002;

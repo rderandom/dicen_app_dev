@@ -4,16 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
-
-import org.apache.http.client.HttpClient;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -30,7 +26,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 import com.rdr.rmaptest.dto.LatLngDTO;
 import com.rdr.rmaptest.dto.MarkerDTO;
 
@@ -74,22 +69,22 @@ public class NuevoActivity extends Activity {
 				EditText txtTexto = (EditText) findViewById(R.id.txt_texto);
 				String snippet = txtTexto.getText().toString();
 
-				double lat = marker.getPosition().latitude;
-				double lng = marker.getPosition().longitude;
-	
-				MarkerDTO marker = new MarkerDTO();
-				marker.setTitle(titulo);
-				marker.setSnippet(snippet);  
-				marker.setLatlng(new LatLngDTO(lat,lng));
-				
-				
-				new UploadMarkerAsynkTask().execute(marker);
+				if(marker!=null){
+//					LatLng pos = marker.getPosition();
+					double lat = marker.getPosition().latitude;
+					double lng = marker.getPosition().longitude;	
+					MarkerDTO marker = new MarkerDTO();
+					marker.setTitle(titulo);
+					marker.setSnippet(snippet);  
+					marker.setLatlng(new LatLngDTO(lat,lng));
+						
+					new UploadMarkerAsynkTask().execute(marker);
+					
+				}
 			}
 		});
 		
 	}
-	
-	
 	
 	/**
 	 * 
@@ -100,40 +95,50 @@ public class NuevoActivity extends Activity {
 		final String USER_AGENT = "Mozilla/5.0";
 
 		@Override
+		protected void onPostExecute(Void v){
+			NuevoActivity.this.finish();
+		}
+		
+		@Override
 		protected Void doInBackground(MarkerDTO... marker) {
-			Gson gson = new Gson();
-			String toJson = gson.toJson(marker);
+//			Gson gson = new Gson();
+//			String toJson = gson.toJson(marker);
 			
-			URL obj;
 			try {
-//				obj = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php");
-//			
-//				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-//		 
-//				//add reuqest header
-//				con.setRequestMethod("POST");
-//				con.setRequestProperty("User-Agent", USER_AGENT);
-//				con.setRequestProperty("Accept-Language", "es-ES,en;q=0.5");
-//		 
-//				String urlParameters = "data="+toJson;
-//		 
-//				// Send post request
-//				con.setDoOutput(true);
-//				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-//				wr.writeBytes(urlParameters);
-//				wr.flush();
-//				wr.close();
-//		 
-////				int responseCode = con.getResponseCode();
+
+				String lat = String.valueOf(marker[0].getLatlng().getLatitude());
+				String lng =  String.valueOf(marker[0].getLatlng().getLongitude());
+				String title = marker[0].getTitle();
+				String snippet = marker[0].getSnippet();
+
+//		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+"?data="+toJson);
+				StringBuilder params = new StringBuilder("?");
+				params.append("lat=");
+				params.append(lat);
+				params.append("&");
+				params.append("lng=");
+				params.append(lng);
+				params.append("&");
+				params.append("title=");
+				params.append(title);
+				params.append("&");
+				params.append("snippet=");
+				params.append(snippet);			
 				
-		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+"?data="+toJson);
+				
+		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+params.toString());
 		    	
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 				BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
-				String resultToDisplay = slurp(in, 255);
-				
-				urlConnection.disconnect();
-				
+				slurp(in, 255);
+				if(in!=null){
+					in.close();
+	
+				}
+				if(urlConnection != null){
+					urlConnection.disconnect();
+		
+				}
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

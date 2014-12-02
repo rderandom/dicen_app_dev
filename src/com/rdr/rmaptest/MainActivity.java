@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -84,6 +85,9 @@ public class MainActivity extends Activity {
 
 	public class DownloadMarkersAsynkTask extends AsyncTask<String, String, List<MarkerOptions>> {
 	
+		private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP = "http://rderecursivacom.ipage.com/ws/ServicioListado.php";
+
+
 		@Override
 		protected List<MarkerOptions> doInBackground(String... arg0) {
 			String resultToDisplay = "";	
@@ -91,7 +95,7 @@ public class MainActivity extends Activity {
 
 			try {
 				// HTTP GET al Servicio PHP
-				URL url = new URL("http://rderecursivacom.ipage.com/ws/Controller.php");
+				URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP);
 	
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 				in = new BufferedInputStream(urlConnection.getInputStream());
@@ -111,7 +115,10 @@ public class MainActivity extends Activity {
 					MarkerOptions markerOptions = new MarkerOptions()
 					.position(new LatLng(latlng.getLatitude(), latlng.getLongitude()))
 				    .title(markerDTO.getTitle())
-				    .snippet(markerDTO.getSnippet());
+				    .snippet(markerDTO.getSnippet())				
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.conversation)) ;
+
+					
 					
 					markers.add(markerOptions);
 				}
