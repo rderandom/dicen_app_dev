@@ -109,21 +109,23 @@ public class NuevoActivity extends Activity {
 				InputStream connectionInStream = urlConnection.getInputStream();
 				BufferedInputStream in = new BufferedInputStream(connectionInStream);
 				
+				slurp(in, 255);
+				
+				if(in!=null){
+					in.close();
+				}
+				
 				if(connectionInStream!=null){
 					connectionInStream.close();
 				}
-				slurp(in, 255);
 				
 				urlConnection.disconnect();
 				
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ProtocolException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
