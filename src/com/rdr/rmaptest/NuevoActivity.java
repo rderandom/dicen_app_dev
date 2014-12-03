@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -92,10 +93,13 @@ public class NuevoActivity extends Activity {
 	 *
 	 */
 	public class UploadMarkerAsynkTask extends AsyncTask<MarkerDTO, String, Void> {
+		private static final String ENVIANDO_MOVIDAS = "Enviando movidas al servidor...";
 		final String USER_AGENT = "Mozilla/5.0";
-
+		Toast toast;
+		
 		@Override
 		protected void onPostExecute(Void v){
+		    toast.cancel();
 			NuevoActivity.this.finish();
 		}
 		
@@ -104,6 +108,9 @@ public class NuevoActivity extends Activity {
 //			Gson gson = new Gson();
 //			String toJson = gson.toJson(marker);
 			
+		    toast = Toast.makeText(NuevoActivity.this, ENVIANDO_MOVIDAS, Toast.LENGTH_LONG*2);
+		    toast.show();
+		    
 			try {
 
 				String lat = String.valueOf(marker[0].getLatlng().getLatitude());

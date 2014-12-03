@@ -12,33 +12,6 @@
         -->
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-         <item name="android:textColor">#000066</item>/> 
-         <item name="android:actionBarStyle">@style/RdrActionBar</item>
-         <item name="android:popupMenuStyle">@style/RdrPopupMenu</item>
-         <item name="android:actionBarWidgetTheme">@style/RdrPopupMenu</item>
-
-    </style>
-    
-        <!-- ActionBar styles -->
-    <style name="RdrActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">#000066</item>
-    </style>
-    
-    <!-- The beef: background color for Action Bar overflow menu -->
-    <style name="RdrPopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
-       <item name="android:popupBackground">#000066</item>    
-       <item name="android:textColor">#ffffff</item>
-	   <item name="android:paddingLeft">4dp</item>
-	   <item name="android:paddingBottom">4dp</item>
-
-	   <item name="android:shadowColor">#000000</item>
-	   <item name="android:shadowDx">2</item>
-	   <item name="android:shadowDy">2</item>
-	   <item name="android:shadowRadius">2</item>
-    </style>
 
     
 </resources>

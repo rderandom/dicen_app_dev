@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="apptheme_color">#84b6b1</color>
+    
+    <color name="cB1">#cccccc</color>
+    
+    <color name="c1">#84b6b1</color>
+    <color name="c2">#84b6b1</color>
+    
+    <color name="cD1">#84b6b1</color>
+    <color name="cD2">#84b6b1</color>
+    
+    <color name="cC1">#37837C</color>
+    <color name="cC2">#4DB6AC</color>
+    
+</resources>
