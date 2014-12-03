@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Dicen&#8230;</string>
+    <string name="app_name">RMapTest</string>
     <string name="mostrar">Mostrar</string>
     <string name="enviar">Enviar</string>
     <string name="action_nuevo">Nuevo</string>

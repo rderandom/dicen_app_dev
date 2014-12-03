@@ -19,12 +19,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -34,27 +32,19 @@ import com.rdr.rmaptest.dto.MarkerDTO;
 
 public class MainActivity extends Activity {
 	static final LatLng SALAMANCA = new LatLng(40.965, -5.665);
-//	Typeface face;
-	
-	Toast toast;
-	private static final String DESCARGANDO_MOVIDAS = "Descargando movidas...";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-//		face = Typeface.createFromAsset(getAssets(),"fonts/YanoneKaffeesatz.ttf");
-
-		
 		if (map != null) {
 
 			// Move the camera instantly to SALAMANCA with a zoom of 15.
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SALAMANCA, 15));
 			new DownloadMarkersAsynkTask().execute();
-		    toast = Toast.makeText(MainActivity.this, DESCARGANDO_MOVIDAS, Toast.LENGTH_LONG*2);
-		    toast.show();
+		
 
 		}
 	}
@@ -93,18 +83,15 @@ public class MainActivity extends Activity {
 	
 
 	public class DownloadMarkersAsynkTask extends AsyncTask<String, String, List<MarkerOptions>> {
-
-		private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP = "http://rderecursivacom.ipage.com/ws/ServicioListado.php";
-
-
+	
 		@Override
 		protected List<MarkerOptions> doInBackground(String... arg0) {
 			String resultToDisplay = "";	
 			InputStream in = null;
-		    
+
 			try {
 				// HTTP GET al Servicio PHP
-				URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP);
+				URL url = new URL("http://rderecursivacom.ipage.com/ws/Controller.php");
 	
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 				in = new BufferedInputStream(urlConnection.getInputStream());
@@ -124,10 +111,7 @@ public class MainActivity extends Activity {
 					MarkerOptions markerOptions = new MarkerOptions()
 					.position(new LatLng(latlng.getLatitude(), latlng.getLongitude()))
 				    .title(markerDTO.getTitle())
-				    .snippet(markerDTO.getSnippet())				
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.conversation)) ;
-
-					
+				    .snippet(markerDTO.getSnippet());
 					
 					markers.add(markerOptions);
 				}
@@ -150,8 +134,6 @@ public class MainActivity extends Activity {
 		    	MarkerOptions markerOptions = result.get(i);
 				map.addMarker(markerOptions);
 			}
-		    
-		    toast.cancel();
 	    }
 		
 		

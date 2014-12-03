@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,10 +26,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.rdr.rmaptest.dto.LatLngDTO;
 import com.rdr.rmaptest.dto.MarkerDTO;
 
 public class NuevoActivity extends Activity {
+	private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP = "http://rderecursivacom.ipage.com/ws/ServicioAlta.php";
 	static final LatLng SALAMANCA = new LatLng(40.965, -5.665);
 	GoogleMap map;
 	Marker marker;
@@ -64,28 +65,28 @@ public class NuevoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				EditText txtTitulo = (EditText) findViewById(R.id.txt_titulo);
-				String titulo = txtTitulo.getText().toString();
+//				EditText txtTitulo = (EditText) findViewById(R.id.txt_titulo);
+//				String titulo = txtTitulo.getText().toString();
 				
 				EditText txtTexto = (EditText) findViewById(R.id.txt_texto);
 				String snippet = txtTexto.getText().toString();
 
-				if(marker!=null){
-//					LatLng pos = marker.getPosition();
-					double lat = marker.getPosition().latitude;
-					double lng = marker.getPosition().longitude;	
-					MarkerDTO marker = new MarkerDTO();
-					marker.setTitle(titulo);
-					marker.setSnippet(snippet);  
-					marker.setLatlng(new LatLngDTO(lat,lng));
-						
-					new UploadMarkerAsynkTask().execute(marker);
-					
-				}
+				double lat = marker.getPosition().latitude;
+				double lng = marker.getPosition().longitude;
+	
+				MarkerDTO marker = new MarkerDTO();
+//				marker.setTitle(titulo);
+				marker.setSnippet(snippet);  
+				marker.setLatlng(new LatLngDTO(lat,lng));
+				
+				
+				new UploadMarkerAsynkTask().execute(marker);
 			}
 		});
 		
 	}
+	
+	
 	
 	/**
 	 * 
@@ -93,59 +94,28 @@ public class NuevoActivity extends Activity {
 	 *
 	 */
 	public class UploadMarkerAsynkTask extends AsyncTask<MarkerDTO, String, Void> {
-		private static final String ENVIANDO_MOVIDAS = "Enviando movidas al servidor...";
 		final String USER_AGENT = "Mozilla/5.0";
-		Toast toast;
-		
-		@Override
-		protected void onPostExecute(Void v){
-		    toast.cancel();
-			NuevoActivity.this.finish();
-		}
-		
+
 		@Override
 		protected Void doInBackground(MarkerDTO... marker) {
-//			Gson gson = new Gson();
-//			String toJson = gson.toJson(marker);
+			Gson gson = new Gson();
+			String toJson = gson.toJson(marker);
 			
-		    toast = Toast.makeText(NuevoActivity.this, ENVIANDO_MOVIDAS, Toast.LENGTH_LONG*2);
-		    toast.show();
-		    
 			try {
-
-				String lat = String.valueOf(marker[0].getLatlng().getLatitude());
-				String lng =  String.valueOf(marker[0].getLatlng().getLongitude());
-				String title = marker[0].getTitle();
-				String snippet = marker[0].getSnippet();
-
-//		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+"?data="+toJson);
-				StringBuilder params = new StringBuilder("?");
-				params.append("lat=");
-				params.append(lat);
-				params.append("&");
-				params.append("lng=");
-				params.append(lng);
-				params.append("&");
-				params.append("title=");
-				params.append(title);
-				params.append("&");
-				params.append("snippet=");
-				params.append(snippet);			
 				
-				
-		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+params.toString());
+		        URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP+"?data="+toJson);
 		    	
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-				BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+				InputStream connectionInStream = urlConnection.getInputStream();
+				BufferedInputStream in = new BufferedInputStream(connectionInStream);
+				
+				if(connectionInStream!=null){
+					connectionInStream.close();
+				}
 				slurp(in, 255);
-				if(in!=null){
-					in.close();
-	
-				}
-				if(urlConnection != null){
-					urlConnection.disconnect();
-		
-				}
+				
+				urlConnection.disconnect();
+				
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
