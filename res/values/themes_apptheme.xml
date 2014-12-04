@@ -20,8 +20,8 @@
 
     <!-- The beef: background color for Action Bar overflow menu -->
     <style name="RdrPopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">#4DB6AC</item>
-        <item name="android:textColor">#7F7967</item>
+        <item name="android:popupBackground">@drawable/custom_actionbar</item>
+        <item name="android:textColor">#ffffff</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:shadowColor">#000000</item>

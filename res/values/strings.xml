@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">RMapTest</string>
+    <string name="app_name">Deego!</string>
     <string name="mostrar">Mostrar</string>
     <string name="enviar">Enviar</string>
     <string name="action_nuevo">Nuevo</string>
     <string name="titulo">Título</string>
-    <string name="texto">Texto</string>
-    
- 	<string-array name="ciudades_array">
+    <string name="texto">¿Qué deeces?</string>
+
+    <string-array name="ciudades_array">
         <item>Salamanca</item>
+        <item>Madrid</item>
     </string-array>
+
 </resources>

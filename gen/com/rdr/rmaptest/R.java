@@ -423,11 +423,11 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020023;
     }
     public static final class id {
-        public static final int action_nuevo=0x7f07001c;
+        public static final int action_nuevo=0x7f07001b;
         public static final int book_now=0x7f070010;
         public static final int btn_nuevo=0x7f070014;
         public static final int button1=0x7f070016;
-        public static final int button_enviar=0x7f07001a;
+        public static final int button_enviar=0x7f070019;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
@@ -448,9 +448,8 @@ containing a value of this type.
         public static final int spinner1=0x7f070017;
         public static final int strict_sandbox=0x7f070009;
         public static final int terrain=0x7f070003;
-        public static final int textView1=0x7f07001b;
-        public static final int txt_texto=0x7f070019;
-        public static final int txt_titulo=0x7f070018;
+        public static final int textView1=0x7f07001a;
+        public static final int txt_texto=0x7f070018;
         public static final int wrap_content=0x7f07000d;
     }
     public static final class integer {
@@ -607,6 +606,8 @@ containing a value of this type.
          */
         public static final int AppBaseTheme=0x7f040005;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
          */
         public static final int AppTheme=0x7f040006;
         /**  ActionBar styles 

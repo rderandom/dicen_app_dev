@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +44,17 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		face = Typeface.createFromAsset(getAssets(),"fonts/YanoneKaffeesatz.ttf");
+
+		
+	    //Cambiar fuente al título
+	    int titleId = getResources().getIdentifier("action_bar_title", "id",  "android");
+	    TextView yourTextView = (TextView) findViewById(titleId);
+	    yourTextView.setTypeface(face);
+	    yourTextView.setTextSize(28);
+		
+		
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
 		if (map != null) {

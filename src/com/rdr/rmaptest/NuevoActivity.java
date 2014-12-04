@@ -12,12 +12,14 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +28,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 import com.rdr.rmaptest.dto.LatLngDTO;
 import com.rdr.rmaptest.dto.MarkerDTO;
 
@@ -35,11 +36,24 @@ public class NuevoActivity extends Activity {
 	static final LatLng SALAMANCA = new LatLng(40.965, -5.665);
 	GoogleMap map;
 	Marker marker;
+	private Typeface face;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nuevo);
+		
+		face = Typeface.createFromAsset(getAssets(),"fonts/YanoneKaffeesatz.ttf");
+
+	    //Cambiar fuente al título
+	    int titleId = getResources().getIdentifier("action_bar_title", "id",  "android");
+	    TextView yourTextView = (TextView) findViewById(titleId);
+	    yourTextView.setTypeface(face);
+	    yourTextView.setTextSize(28);
+	    
+		Button btnEnviar = (Button) findViewById(R.id.button_enviar);
+		btnEnviar.setTypeface(face);
+		btnEnviar.setTextSize(26);
 		
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
@@ -59,7 +73,6 @@ public class NuevoActivity extends Activity {
 			
 		}
 		
-		Button btnEnviar = (Button) findViewById(R.id.button_enviar);
 		btnEnviar.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -93,19 +106,49 @@ public class NuevoActivity extends Activity {
 	 * @author rderandom
 	 *
 	 */
+	/**
+	 * 
+	 * @author rderandom
+	 *
+	 */
 	public class UploadMarkerAsynkTask extends AsyncTask<MarkerDTO, String, Void> {
 		final String USER_AGENT = "Mozilla/5.0";
 
 		@Override
+		protected void onPostExecute(Void v){
+			NuevoActivity.this.finish();
+		}
+		
+		@Override
 		protected Void doInBackground(MarkerDTO... marker) {
-			Gson gson = new Gson();
-			String toJson = gson.toJson(marker);
+//			Gson gson = new Gson();
+//			String toJson = gson.toJson(marker);
 			
 			try {
+
+				String lat = String.valueOf(marker[0].getLatlng().getLatitude());
+				String lng =  String.valueOf(marker[0].getLatlng().getLongitude());
+				String title = marker[0].getTitle();
+				String snippet = marker[0].getSnippet();
+
+//		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+"?data="+toJson);
+				StringBuilder params = new StringBuilder("?");
+				params.append("lat=");
+				params.append(lat);
+				params.append("&");
+				params.append("lng=");
+				params.append(lng);
+				params.append("&");
+				params.append("title=");
+				params.append(title);
+				params.append("&");
+				params.append("snippet=");
+				params.append(snippet);			
 				
-		        URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP+"?data="+toJson);
+				
+		        URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP+params.toString());
 		    	
-				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		    	HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 				InputStream connectionInStream = urlConnection.getInputStream();
 				BufferedInputStream in = new BufferedInputStream(connectionInStream);
 				
@@ -120,12 +163,14 @@ public class NuevoActivity extends Activity {
 				}
 				
 				urlConnection.disconnect();
-				
 			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ProtocolException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

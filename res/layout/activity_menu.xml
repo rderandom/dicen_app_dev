@@ -9,14 +9,17 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/mostrar" />
+        android:background="@drawable/custom_button"
+        android:text="@string/mostrar"
+        android:textColor="#ffffff"
+         />
 
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1" 
-                android:layout_centerInParent="true" 
+        android:layout_centerInParent="true" 
         />
 
 </RelativeLayout>
