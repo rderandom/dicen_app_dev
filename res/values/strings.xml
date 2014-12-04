@@ -7,7 +7,7 @@
     <string name="action_nuevo">Nuevo</string>
     <string name="titulo">Título</string>
     <string name="texto">¿Qué deeces?</string>
-
+	<string name="descImagenCompose">Nuevo&#8230;</string>
     <string-array name="ciudades_array">
         <item>Salamanca</item>
         <item>Madrid</item>

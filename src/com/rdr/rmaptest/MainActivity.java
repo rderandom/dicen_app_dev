@@ -54,6 +54,8 @@ public class MainActivity extends Activity {
 	    yourTextView.setTypeface(face);
 	    yourTextView.setTextSize(28);
 		
+//	    TextView actionNuevo = (TextView) findViewById(R.id.action_nuevo);
+//		actionNuevo.setTypeface(face);
 		
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 

@@ -16,7 +16,8 @@
     <EditText
         android:id="@+id/txt_texto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="0dp" 
+        android:layout_weight="2"
         android:hint="@string/texto" />
         
     <fragment
@@ -24,13 +25,18 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top" />
+        android:gravity="top" 
+        android:layout_weight="5"   
+        />
 
     <Button
         android:id="@+id/button_enviar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/enviar" />
+        android:layout_height="0dp"
+        android:text="@string/enviar"
+        android:background="@color/blue1"
+        android:textColor="#ffffff"
+        android:layout_weight="1"   
+        />
 
 </LinearLayout>
