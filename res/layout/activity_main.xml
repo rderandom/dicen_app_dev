@@ -11,12 +11,14 @@
 
 
 <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/btn_nuevo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/compose" 
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"    
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
         android:contentDescription="@string/descImagenCompose"
 /> 
 

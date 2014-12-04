@@ -20,6 +20,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,12 +70,23 @@ public class MainActivity extends Activity {
 		    toast.show();
 
 		}
+		
+		ImageView btnNuevo = (ImageView) findViewById(R.id.btn_nuevo);
+		btnNuevo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(MainActivity.this, NuevoActivity.class);
+				startActivity(i);
+			}
+		});
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+//		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
@@ -82,12 +96,12 @@ public class MainActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_nuevo) {
-			Intent i = new Intent(this, NuevoActivity.class);
-			startActivity(i);
-			return true;
-		}
+//		int id = item.getItemId();
+//		if (id == R.id.action_nuevo) {
+//			Intent i = new Intent(this, NuevoActivity.class);
+//			startActivity(i);
+//			return true;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 	

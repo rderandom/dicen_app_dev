@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -64,8 +65,17 @@ public class NuevoActivity extends Activity {
 		
 			map.setOnMapClickListener(new OnMapClickListener() {
 				@Override
-				public void onMapClick(LatLng arg0) {
-					marker = map.addMarker(new MarkerOptions().position(arg0));		
+				public void onMapClick(LatLng latLngClicked) {
+					if(marker == null){
+						MarkerOptions markerOptions = new MarkerOptions()
+						.position(latLngClicked)
+						.icon(BitmapDescriptorFactory.fromResource(R.drawable.conversation));
+						
+						marker = map.addMarker(markerOptions);		
+
+					} else {
+						marker.setPosition(latLngClicked);
+					}
 				}
 			});
 			
@@ -84,16 +94,19 @@ public class NuevoActivity extends Activity {
 				EditText txtTexto = (EditText) findViewById(R.id.txt_texto);
 				String snippet = txtTexto.getText().toString();
 
-				double lat = marker.getPosition().latitude;
-				double lng = marker.getPosition().longitude;
-	
-				MarkerDTO marker = new MarkerDTO();
-//				marker.setTitle(titulo);
-				marker.setSnippet(snippet);  
-				marker.setLatlng(new LatLngDTO(lat,lng));
-				
-				
-				new UploadMarkerAsynkTask().execute(marker);
+				if(marker != null){
+					double lat = marker.getPosition().latitude;
+					double lng = marker.getPosition().longitude;
+		
+					MarkerDTO marker = new MarkerDTO();
+//					marker.setTitle(titulo);
+					marker.setSnippet(snippet);  
+					marker.setLatlng(new LatLngDTO(lat,lng));
+					
+					
+					new UploadMarkerAsynkTask().execute(marker);				
+				}
+
 			}
 		});
 		
