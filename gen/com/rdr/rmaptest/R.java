@@ -9,7 +9,7 @@ package com.rdr.rmaptest;
 
 public final class R {
     public static final class array {
-        public static final int ciudades_array=0x7f090000;
+        public static final int ciudades_array=0x7f0a0000;
     }
     public static final class attr {
         /** 
@@ -376,6 +376,17 @@ containing a value of this type.
         public static final int wallet_primary_text_holo_light=0x7f060024;
         public static final int wallet_secondary_text_holo_dark=0x7f060025;
     }
+    public static final class dimen {
+        /**  Default screen margins, per the Android Design guidelines. 
+
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+         */
+        public static final int activity_horizontal_margin=0x7f090000;
+        public static final int activity_vertical_margin=0x7f090001;
+    }
     public static final class drawable {
         public static final int common_full_open_on_phone=0x7f020000;
         public static final int common_ic_googleplayservices=0x7f020001;
@@ -411,16 +422,18 @@ containing a value of this type.
         public static final int custom_actionbar2=0x7f02001f;
         public static final int custom_button=0x7f020020;
         public static final int custom_button2=0x7f020021;
-        public static final int ic_launcher=0x7f020022;
-        public static final int ic_plusone_medium_off_client=0x7f020023;
-        public static final int ic_plusone_small_off_client=0x7f020024;
-        public static final int ic_plusone_standard_off_client=0x7f020025;
-        public static final int ic_plusone_tall_off_client=0x7f020026;
-        public static final int marker1=0x7f020027;
-        public static final int powered_by_google_dark=0x7f020028;
-        public static final int powered_by_google_light=0x7f020029;
+        public static final int edittext_custom=0x7f020022;
+        public static final int ic_launcher=0x7f020023;
+        public static final int ic_plusone_medium_off_client=0x7f020024;
+        public static final int ic_plusone_small_off_client=0x7f020025;
+        public static final int ic_plusone_standard_off_client=0x7f020026;
+        public static final int ic_plusone_tall_off_client=0x7f020027;
+        public static final int marker1=0x7f020028;
+        public static final int powered_by_google_dark=0x7f020029;
+        public static final int powered_by_google_light=0x7f02002a;
     }
     public static final class id {
+        public static final int action_nuevo=0x7f07001b;
         public static final int book_now=0x7f070010;
         public static final int btn_nuevo=0x7f070014;
         public static final int button1=0x7f070016;
@@ -457,7 +470,13 @@ containing a value of this type.
         public static final int activity_main=0x7f030001;
         public static final int activity_menu=0x7f030002;
         public static final int activity_nuevo=0x7f030003;
-        public static final int my_spinner_style=0x7f030004;
+        public static final int edit_default=0x7f030004;
+        public static final int edit_focused=0x7f030005;
+        public static final int edit_pressed=0x7f030006;
+        public static final int my_spinner_style=0x7f030007;
+    }
+    public static final class menu {
+        public static final int main=0x7f0b0000;
     }
     public static final class string {
         public static final int accept=0x7f050002;
@@ -578,15 +597,39 @@ containing a value of this type.
         public static final int wallet_buy_button_place_holder=0x7f050022;
     }
     public static final class style {
-        /**  Application theme. 
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    
+ API 11 theme customizations can go here. 
+
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    
+ API 14 theme customizations can go here. 
          */
-        public static final int AppTheme=0x7f040005;
+        public static final int AppBaseTheme=0x7f040005;
+        /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
+         */
+        public static final int AppTheme=0x7f040006;
         /**  ActionBar styles 
          */
-        public static final int RdrActionBar=0x7f040006;
+        public static final int RdrActionBar=0x7f040007;
         /**  The beef: background color for Action Bar overflow menu 
          */
-        public static final int RdrPopupMenu=0x7f040007;
+        public static final int RdrPopupMenu=0x7f040008;
         public static final int Theme_IAPTheme=0x7f040000;
         public static final int WalletFragmentDefaultButtonTextAppearance=0x7f040003;
         public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f040002;

@@ -18,8 +18,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -57,9 +56,7 @@ public class MainActivity extends Activity {
 	    yourTextView.setTypeface(face);
 	    yourTextView.setTextSize(28);
 		
-//	    TextView actionNuevo = (TextView) findViewById(R.id.action_nuevo);
-//		actionNuevo.setTypeface(face);
-		
+
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
 		if (map != null) {
@@ -83,16 +80,16 @@ public class MainActivity extends Activity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 //		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+//		return true;
+//	}
+//	
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
@@ -102,8 +99,9 @@ public class MainActivity extends Activity {
 //			startActivity(i);
 //			return true;
 //		}
-		return super.onOptionsItemSelected(item);
-	}
+//		return super.onOptionsItemSelected(item);
+//	}
+//	
 	
 	
 	
@@ -115,8 +113,11 @@ public class MainActivity extends Activity {
 	
 	
 	
-	
-
+	/**
+	 * Descargar Listado de MarkerOptions desde
+	 * HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP
+	 *
+	 */
 	public class DownloadMarkersAsynkTask extends AsyncTask<String, String, List<MarkerOptions>> {
 		private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP = "http://rderecursivacom.ipage.com/ws/ServicioListado.php";
 
@@ -124,22 +125,19 @@ public class MainActivity extends Activity {
 		protected List<MarkerOptions> doInBackground(String... arg0) {
 			String resultToDisplay = "";	
 			InputStream in = null;
-
+			HttpURLConnection urlConnection = null;
+			
 			try {
 				// HTTP GET al Servicio PHP
 				URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP);
 	
-				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+				urlConnection = (HttpURLConnection) url.openConnection();
 				InputStream urlConnectionInputStream = urlConnection.getInputStream();
 				in = new BufferedInputStream(urlConnectionInputStream);
 				resultToDisplay = slurp(in, 255);
 				
 				if(urlConnectionInputStream!= null){
 					urlConnectionInputStream.close();
-				}
-				if(urlConnection != null){
-					urlConnection.disconnect();
-
 				}
 				
 				if(in != null){
@@ -171,6 +169,12 @@ public class MainActivity extends Activity {
 	
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				if(urlConnection != null){
+					urlConnection.disconnect();
+	
+				}
+
 			}
 	
 			return new ArrayList<MarkerOptions>();

@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,9 +33,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.rdr.rmaptest.LatLngDTO;
 import com.rdr.rmaptest.MarkerDTO;
 
+/**
+ * Desde esta vista se da de alta un nuevo
+ * marker y se envía al servidor.
+ */
 public class NuevoActivity extends Activity {
 	private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP = "http://rderecursivacom.ipage.com/ws/ServicioAlta.php";
 	static final LatLng SALAMANCA = new LatLng(40.965, -5.665);
+	protected static final CharSequence TEXTO_MARKER_NULL = "Pincha en el mapa para que sepamos dónde.";
+	protected static final CharSequence TEXTO_SNIPPET_NULL = "Tienes que teclear algo.";
 	GoogleMap map;
 	Marker marker;
 	private Typeface face;
@@ -44,6 +51,7 @@ public class NuevoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nuevo);
 		
+		//Instanciar fuente desde Assets
 		face = Typeface.createFromAsset(getAssets(),"fonts/YanoneKaffeesatz.ttf");
 
 	    //Cambiar fuente al título
@@ -51,7 +59,8 @@ public class NuevoActivity extends Activity {
 	    TextView yourTextView = (TextView) findViewById(titleId);
 	    yourTextView.setTypeface(face);
 	    yourTextView.setTextSize(28);
-	    
+	
+	    //Cambiar fuente al btnEnviar
 		Button btnEnviar = (Button) findViewById(R.id.button_enviar);
 		btnEnviar.setTypeface(face);
 		btnEnviar.setTextSize(26);
@@ -62,7 +71,6 @@ public class NuevoActivity extends Activity {
 			// Move the camera instantly to SALAMANCA with a zoom of 15.
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SALAMANCA, 15));
 			
-		
 			map.setOnMapClickListener(new OnMapClickListener() {
 				@Override
 				public void onMapClick(LatLng latLngClicked) {
@@ -75,53 +83,47 @@ public class NuevoActivity extends Activity {
 
 					} else {
 						marker.setPosition(latLngClicked);
+						
 					}
 				}
-			});
-			
-
-			
-		}
+			}); //end of map.setOnMapClickListener(new OnMapClickListener() {		
+		}	
 		
-		btnEnviar.setOnClickListener(new OnClickListener() {
-			
+		btnEnviar.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-//				EditText txtTitulo = (EditText) findViewById(R.id.txt_titulo);
-//				String titulo = txtTitulo.getText().toString();
-				
 				EditText txtTexto = (EditText) findViewById(R.id.txt_texto);
 				String snippet = txtTexto.getText().toString();
 
-				if(marker != null){
+				if(marker == null){
+					Toast.makeText(NuevoActivity.this, TEXTO_MARKER_NULL, Toast.LENGTH_SHORT).show();
+					
+				} else if( (snippet == null) || ("".equals(snippet.trim()))){
+					Toast.makeText(NuevoActivity.this, TEXTO_SNIPPET_NULL, Toast.LENGTH_SHORT).show();
+			
+				} else {
 					double lat = marker.getPosition().latitude;
 					double lng = marker.getPosition().longitude;
 		
 					MarkerDTO marker = new MarkerDTO();
-//					marker.setTitle(titulo);
 					marker.setSnippet(snippet);  
 					marker.setLatlng(new LatLngDTO(lat,lng));
-					
-					
+										
 					new UploadMarkerAsynkTask().execute(marker);				
+				
 				}
 
 			}
-		});
+		});//end of btnEnviar.setOnClickListener(new OnClickListener() {			
 		
 	}
 	
 	
 	
+
 	/**
-	 * 
-	 * @author rderandom
-	 *
-	 */
-	/**
-	 * 
-	 * @author rderandom
+	 * Envía a HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP
+	 * los datos necesarios para crear un nuevo marker.
 	 *
 	 */
 	public class UploadMarkerAsynkTask extends AsyncTask<MarkerDTO, String, Void> {
@@ -134,17 +136,17 @@ public class NuevoActivity extends Activity {
 		
 		@Override
 		protected Void doInBackground(MarkerDTO... marker) {
-//			Gson gson = new Gson();
-//			String toJson = gson.toJson(marker);
+			HttpURLConnection urlConnection = null;
 			
 			try {
-
+//				Gson gson = new Gson();
+//				String toJson = gson.toJson(marker);
+				
 				String lat = String.valueOf(marker[0].getLatlng().getLatitude());
 				String lng =  String.valueOf(marker[0].getLatlng().getLongitude());
 				String title = marker[0].getTitle();
 				String snippet = marker[0].getSnippet();
 
-//		        URL url = new URL("http://rderecursivacom.ipage.com/ws/ServicioAlta.php"+"?data="+toJson);
 				StringBuilder params = new StringBuilder("?");
 				params.append("lat=");
 				params.append(lat);
@@ -161,7 +163,7 @@ public class NuevoActivity extends Activity {
 				
 		        URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP+params.toString());
 		    	
-		    	HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		    	urlConnection = (HttpURLConnection) url.openConnection();
 				InputStream connectionInStream = urlConnection.getInputStream();
 				BufferedInputStream in = new BufferedInputStream(connectionInStream);
 				
@@ -175,17 +177,24 @@ public class NuevoActivity extends Activity {
 					connectionInStream.close();
 				}
 				
-				urlConnection.disconnect();
+
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			} catch (ProtocolException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+			} finally {
+				if(urlConnection != null){
+					urlConnection.disconnect();
+	
+				}
+
 			}
+	
 			
 			
 			return null;
