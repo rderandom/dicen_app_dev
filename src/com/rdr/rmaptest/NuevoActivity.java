@@ -29,8 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.rdr.rmaptest.dto.LatLngDTO;
-import com.rdr.rmaptest.dto.MarkerDTO;
+import com.rdr.rmaptest.LatLngDTO;
+import com.rdr.rmaptest.MarkerDTO;
 
 public class NuevoActivity extends Activity {
 	private static final String HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_ALTA_PHP = "http://rderecursivacom.ipage.com/ws/ServicioAlta.php";

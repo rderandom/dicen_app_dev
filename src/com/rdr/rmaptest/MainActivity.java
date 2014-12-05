@@ -34,8 +34,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.rdr.rmaptest.dto.LatLngDTO;
-import com.rdr.rmaptest.dto.MarkerDTO;
+import com.rdr.rmaptest.LatLngDTO;
+import com.rdr.rmaptest.MarkerDTO;
 
 public class MainActivity extends Activity {
 	private static final String DESCARGANDO_MOVIDAS = "Descargando movidas...";
@@ -130,9 +130,23 @@ public class MainActivity extends Activity {
 				URL url = new URL(HTTP_RDERECURSIVACOM_IPAGE_COM_WS_SERVICIO_LISTADO_PHP);
 	
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-				in = new BufferedInputStream(urlConnection.getInputStream());
+				InputStream urlConnectionInputStream = urlConnection.getInputStream();
+				in = new BufferedInputStream(urlConnectionInputStream);
 				resultToDisplay = slurp(in, 255);
-				urlConnection.disconnect();
+				
+				if(urlConnectionInputStream!= null){
+					urlConnectionInputStream.close();
+				}
+				if(urlConnection != null){
+					urlConnection.disconnect();
+
+				}
+				
+				if(in != null){
+					in.close();
+				}
+
+				
 
 				//Pasar JSON a lista de MarkerDTO
 				Gson gson = new Gson();

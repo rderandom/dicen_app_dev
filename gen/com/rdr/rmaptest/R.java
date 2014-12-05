@@ -9,7 +9,7 @@ package com.rdr.rmaptest;
 
 public final class R {
     public static final class array {
-        public static final int ciudades_array=0x7f0a0000;
+        public static final int ciudades_array=0x7f090000;
     }
     public static final class attr {
         /** 
@@ -332,6 +332,8 @@ containing a value of this type.
     public static final class color {
         public static final int apptheme_color=0x7f060017;
         public static final int blue1=0x7f06001f;
+        public static final int blue2=0x7f060020;
+        public static final int blue3=0x7f060021;
         public static final int c1=0x7f060019;
         public static final int c2=0x7f06001a;
         public static final int cB1=0x7f060018;
@@ -351,8 +353,8 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f060006;
         public static final int common_signin_btn_light_text_focused=0x7f060007;
         public static final int common_signin_btn_light_text_pressed=0x7f060005;
-        public static final int common_signin_btn_text_dark=0x7f060020;
-        public static final int common_signin_btn_text_light=0x7f060021;
+        public static final int common_signin_btn_text_dark=0x7f060022;
+        public static final int common_signin_btn_text_light=0x7f060023;
         public static final int wallet_bright_foreground_disabled_holo_light=0x7f06000f;
         /** 
          Wallet colors to support consistent Wallet fragment holo dark UI in client application
@@ -371,19 +373,8 @@ containing a value of this type.
         public static final int wallet_hint_foreground_holo_light=0x7f060011;
         public static final int wallet_holo_blue_light=0x7f060015;
         public static final int wallet_link_text_light=0x7f060016;
-        public static final int wallet_primary_text_holo_light=0x7f060022;
-        public static final int wallet_secondary_text_holo_dark=0x7f060023;
-    }
-    public static final class dimen {
-        /**  Default screen margins, per the Android Design guidelines. 
-
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
-         */
-        public static final int activity_horizontal_margin=0x7f090000;
-        public static final int activity_vertical_margin=0x7f090001;
+        public static final int wallet_primary_text_holo_light=0x7f060024;
+        public static final int wallet_secondary_text_holo_dark=0x7f060025;
     }
     public static final class drawable {
         public static final int common_full_open_on_phone=0x7f020000;
@@ -430,7 +421,6 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020029;
     }
     public static final class id {
-        public static final int action_nuevo=0x7f07001b;
         public static final int book_now=0x7f070010;
         public static final int btn_nuevo=0x7f070014;
         public static final int button1=0x7f070016;
@@ -468,9 +458,6 @@ containing a value of this type.
         public static final int activity_menu=0x7f030002;
         public static final int activity_nuevo=0x7f030003;
         public static final int my_spinner_style=0x7f030004;
-    }
-    public static final class menu {
-        public static final int main=0x7f0b0000;
     }
     public static final class string {
         public static final int accept=0x7f050002;
@@ -591,39 +578,15 @@ containing a value of this type.
         public static final int wallet_buy_button_place_holder=0x7f050022;
     }
     public static final class style {
-        /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
-    
- API 11 theme customizations can go here. 
-
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
-         */
-        public static final int AppBaseTheme=0x7f040005;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
          */
-        public static final int AppTheme=0x7f040006;
+        public static final int AppTheme=0x7f040005;
         /**  ActionBar styles 
          */
-        public static final int RdrActionBar=0x7f040007;
+        public static final int RdrActionBar=0x7f040006;
         /**  The beef: background color for Action Bar overflow menu 
          */
-        public static final int RdrPopupMenu=0x7f040008;
+        public static final int RdrPopupMenu=0x7f040007;
         public static final int Theme_IAPTheme=0x7f040000;
         public static final int WalletFragmentDefaultButtonTextAppearance=0x7f040003;
         public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f040002;

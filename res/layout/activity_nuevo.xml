@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/enviar"
-        android:background="@color/blue1"
+        android:background="@drawable/custom_button"
         android:layout_margin="10dp"
         android:textColor="#ffffff"
         android:layout_weight="1"   
